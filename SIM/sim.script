@@ -1,0 +1,93 @@
+# script de test pour le programme protection
+# usage :
+# > ./scat sim.script
+
+reset
+
+#alias puk[8]
+#alias pin[4]
+
+#set puk "12345678"
+#set pin "0000"
+
+say -s "test de non fonctionnement"
+     # test de non fonctionnement
+
+a0 20 00 00 04 00 00 00 00              # verify_CHV
+
+a0 24 00 00 08 00 00 00 00 01 00 00 00  # change_CHV
+
+a0 2c 00 00 08 01 02 03 04 05 06 07 08  # unlock_CHV
+
+    # introduction de données
+
+a0 00 00 00 08 01 02 03 04 05 06 07 08  # intro puk
+
+say -s "test de non fonctionnement"
+     # test de non fonctionnement
+
+a0 00 00 00 08 01 02 03 04 05 06 07 08  # intro puk
+
+a0 24 00 00 08 00 00 00 00 01 00 00 00  # change_CHV
+
+a0 2c 00 00 08 01 02 03 04 05 06 07 08  # unlock_CHV
+
+    # CHV : déverrouiller carte
+
+a0 20 00 00 04 01 00 00 00              # verify_CHV
+
+a0 20 00 00 04 01 00 00 00              # verify_CHV
+
+a0 20 00 00 04 01 00 00 00              # verify_CHV
+
+say -s "test de non fonctionnement"
+     # test de non fonctionnement
+
+a0 00 00 00 08 01 02 03 04 05 06 07 08  # intro puk
+
+a0 20 00 00 04 00 00 00 00              # verify_CHV
+
+a0 24 00 00 08 00 00 00 00 01 00 00 00  # change_CHV
+
+     # CHV : débloquer le sim par le puk
+
+a0 2c 00 00 08 00 00 00 00 00 00 00 00  # unlock_CHV
+
+a0 2c 00 00 08 01 02 03 04 05 06 07 08  # unlock_CHV
+
+say -s "test de non fonctionnement"
+     # test de non fonctionnement
+
+a0 00 00 00 08 01 02 03 04 05 06 07 08  # intro puk
+
+a0 24 00 00 08 00 00 00 00 01 00 00 00  # change_CHV
+
+a0 2c 00 00 08 01 02 03 04 05 06 07 08  # unlock_CHV
+
+     # CHV : déverrouiller la carte
+
+a0 20 00 00 04 00 00 00 00              # verify_CHV
+
+say -s "test de non fonctionnement"
+     # test de non fonctionnement
+
+a0 00 00 00 08 01 02 03 04 05 06 07 08  # intro puk
+
+a0 20 00 00 04 00 00 00 00              # verify_CHV
+
+a0 2c 00 00 08 01 02 03 04 05 06 07 08  # unlock_CHV
+
+     # changement CHV
+
+a0 24 00 00 08 00 00 00 00 01 00 00 00  # change_CHV
+
+say -s "test de non fonctionnement"
+     # test de non fonctionnement
+
+a0 00 00 00 08 01 02 03 04 05 06 07 08  # intro puk
+
+a0 20 00 00 04 00 00 00 00              # verify_CHV
+
+a0 2c 00 00 08 01 02 03 04 05 06 07 08  # unlock_CHV
+
+exit				                            # fin du script
